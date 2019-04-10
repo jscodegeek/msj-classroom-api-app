@@ -1,0 +1,34 @@
+{
+  "name": "msj-classroom-api-app",
+  "version": "1.0.0",
+  "description": "node.js REST api.",
+  "main": "index.js",
+  "dependencies": {
+    "hapi": "^18.1.0",
+    "lodash": "^4.17.11",
+    "pg": "^7.9.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^5.2.13"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "nodemon": "^1.18.11",
+    "sequelize-cli": "^5.4.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start:watch": "nodemon index.js",
+    "debug:vscode": "node --debug-brk --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jscodegeek/msj-classroom-api-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jscodegeek/msj-classroom-api-app/issues"
+  },
+  "homepage": "https://github.com/jscodegeek/msj-classroom-api-app#readme"
+}

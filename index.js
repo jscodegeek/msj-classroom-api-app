@@ -17,6 +17,8 @@ const server = Hapi.server({
     }
 });
 
+server.realm.modifiers.route.prefix = '/api';
+
 const start = async () => {
     server.route(routes);
     await server.start();

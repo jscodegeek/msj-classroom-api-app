@@ -12,10 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       allowNull: false,
-      unique: false,
       type: DataTypes.STRING
     }
   }, {});
+
+  Broadcast.associate = models => {
+    Broadcast.hasMany(models.Message, { onDelete: 'CASCADE' });
+  };
 
   return Broadcast;
 };

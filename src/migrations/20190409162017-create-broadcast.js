@@ -19,7 +19,6 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        unique: false,
         type: Sequelize.STRING
       },
       createdAt: {

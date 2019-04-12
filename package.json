@@ -18,9 +18,9 @@
     "sequelize-cli": "^5.4.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "start:watch": "nodemon index.js",
-    "debug:vscode": "node --debug-brk --inspect index.js"
+    "start": "node src/index.js",
+    "start:watch": "nodemon src/index.js",
+    "debug:vscode": "node --debug-brk --inspect src/index.js"
   },
   "repository": {
     "type": "git",

@@ -1,24 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
-  const Broadcast = sequelize.define('broadcast', {
-    name: {
-      allowNull: false,
-      unique: true,
-      type: DataTypes.STRING
-    },
-    pincode: {
-      allowNull: false,
-      unique: true,
-      type: DataTypes.INTEGER
-    },
-    status: {
-      allowNull: false,
-      type: DataTypes.STRING
-    }
-  }, {});
+	const Broadcast = sequelize.define('broadcast', {
+		name: {
+			allowNull: false,
+			unique: true,
+			type: DataTypes.STRING
+		},
+		pincode: {
+			allowNull: false,
+			unique: true,
+			type: DataTypes.INTEGER
+		},
+		status: {
+			allowNull: false,
+			type: DataTypes.STRING
+		}
+	}, {});
 
-  Broadcast.associate = models => {
-    Broadcast.hasMany(models.Message, { onDelete: 'CASCADE' });
-  };
+	Broadcast.associate = models => {
+		Broadcast.hasMany(models.Message, { onDelete: 'CASCADE' });
+	};
 
-  return Broadcast;
+	return Broadcast;
 };

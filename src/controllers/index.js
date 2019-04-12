@@ -1,3 +1,4 @@
 module.exports = {
-    broadcastsCtrl: require('./broadcasts')
+	broadcastsCtrl: require('./broadcasts'),
+	messagesCtrl: require('./messages')
 };

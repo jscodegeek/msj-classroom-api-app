@@ -33,6 +33,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Broadcast');
+    return queryInterface.dropTable('broadcasts');
   }
 };

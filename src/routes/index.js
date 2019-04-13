@@ -7,5 +7,6 @@ const hc = {
 module.exports = [
 	hc,
 	...require('./broadcasts'),
+	...require('./lectures'),
 	...require('./messages')
 ];

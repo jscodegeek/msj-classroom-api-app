@@ -26,7 +26,7 @@ const updateBroadcast = async (request, h) => {
 	if (err)
 		return Boom.badRequest('formatted error');
 
-	return h.response({ id: broadcast.id });
+	return h.response({ id });
 }
 
 const deleteBroadcast = async (request, h) => {

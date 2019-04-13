@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 	}, {});
 
 	Broadcast.associate = models => {
+		Broadcast.belongsTo(models.Lecture);
 		Broadcast.hasMany(models.Message, { onDelete: 'CASCADE' });
 	};
 

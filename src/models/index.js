@@ -4,7 +4,8 @@ const config = require('../config');
 const sequelize = new Sequelize(config[config.ENVIRONMENT].db);
 
 const models = {
-  Broadcast: sequelize.import('./broadcast'),
+	Broadcast: sequelize.import('./broadcast'),
+	Lecture: sequelize.import('./lecture'),
   Message: sequelize.import('./message')
 };
 

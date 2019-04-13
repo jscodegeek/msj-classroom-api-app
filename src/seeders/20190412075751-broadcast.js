@@ -2,14 +2,14 @@ const faker = require('faker');
 const _ = require('lodash');
 
 const names = [
-	'Datacloud Asia 2018',
-	'Polymers: Design, Function and Application',
-	'10th International Congress of Internal Medicine',
-	'Artificial intelligence in imaging - threat or opportunity?',
-	'Digital Automotive Manufacturing Conference',
-	'International Battery Seminar & Exhibit',
-	'Day of Science and Careers London',
-	'Living in the Internet of Things and Cyber Security'
+	'Datacloud Asia 2018 part 1',
+	'Polymers: Design, Function and Application part 1',
+	'10th International Congress of Internal Medicine part 1',
+	'Artificial intelligence in imaging - threat or opportunity? part 1',
+	'Digital Automotive Manufacturing Conference part 1',
+	'International Battery Seminar & Exhibit part 1',
+	'Day of Science and Careers London part 1',
+	'Living in the Internet of Things and Cyber Security part 1'
 ];
 
 const statuses = [
@@ -24,7 +24,8 @@ const broadcasts = _.times(8, (n) => ({
 	pincode: n + 1,
 	status: faker.random.arrayElement(statuses),
 	createdAt: new Date(),
-	updatedAt: new Date()
+	updatedAt: new Date(),
+	lectureId: faker.random.number({ min: 1, max: 8 })
 }));
 
 module.exports = {

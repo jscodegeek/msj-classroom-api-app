@@ -19,21 +19,21 @@ const createBroadcast = async (request, h) => {
 }
 
 const updateBroadcast = async (request, h) => {
-	const { broadcastId } = request.params;
+	const { id } = request.params;
 	let err, broadcast;
 
-	[err, broadcast] = await tryCatchHelper(Broadcast.update(request.payload, { where: { id: broadcastId } }));
+	[err, broadcast] = await tryCatchHelper(Broadcast.update(request.payload, { where: { id } }));
 	if (err)
 		return Boom.badRequest('formatted error');
 
-	return h.response({ id: broadcastId });
+	return h.response(broadcast);
 }
 
 const deleteBroadcast = async (request, h) => {
-	const { broadcastId } = request.params;
+	const { id } = request.params;
 	let err, broadcast;
 
-	[err, broadcast] = await tryCatchHelper(Broadcast.destroy({ where: { id: broadcastId } }));
+	[err, broadcast] = await tryCatchHelper(Broadcast.destroy({ where: { id } }));
 	if (err)
 		return Boom.badRequest('formatted error');
 

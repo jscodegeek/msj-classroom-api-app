@@ -1,0 +1,51 @@
+{
+  "extends": [
+    "standard",
+    "prettier",
+		"prettier/standard",
+		"airbnb-base"
+  ],
+  "plugins": [
+    "prettier",
+    "standard"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018 
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+		"no-unused-vars": 0,
+		"arrow-spacing": "error",
+    "eqeqeq": "error",
+    "no-duplicate-imports": "error",
+    "no-undefined": "error",
+    "no-useless-computed-key": "error",
+    "no-useless-rename": "error",
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "prefer-template": "error",
+    "rest-spread-spacing": ["error", "never"],
+    "semi": ["error", "always"],
+    "template-curly-spacing": "error",
+    "linebreak-style": ["error", "unix"],
+    "comma-dangle": ["error", "always-multiline"],
+    "arrow-parens": "off",
+    "arrow-body-style": "off",
+    "curly": "off",
+    "no-underscore-dangle": "off",
+    "max-len": ["error", 120],
+    "no-plusplus": "off",
+    "no-shadow": "off",
+    "no-return-assign": "off",
+    "function-paren-newline": "off",
+    "no-multi-assign": "warn",
+		"no-unused-expressions": "warn",
+		"one-var-declaration-per-line": "off",
+		"one-var": "off",
+		"no-tabs": "off",
+		"no-param-reassign": "off"
+  }
+}

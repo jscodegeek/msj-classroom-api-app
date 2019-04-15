@@ -3,59 +3,55 @@ const { Lecture } = require('../models');
 const { tryCatchHelper } = require('../helpers/formatting');
 
 const fetchAllLectures = async (request, h) => {
-	const lectures = await Lecture.findAll();
+  const lectures = await Lecture.findAll();
 
-	const filteredLectures = lectures.filter(lecture => lecture.deletedAt === null);
+  const filteredLectures = lectures.filter(lecture => lecture.deletedAt === null);
 
-	return h.response(filteredLectures);
-}
+  return h.response(filteredLectures);
+};
 
 const fetchLectureById = async (request, h) => {
-	const { id } = request.params;
+  const { id } = request.params;
 
-	const lecture = await Lecture.findByPk(id);
+  const lecture = await Lecture.findByPk(id);
 
-	return h.response(lecture);
-}
+  return h.response(lecture);
+};
 
 const createLecture = async (request, h) => {
-	let err, lecture;
+  const [err, lecture] = await tryCatchHelper(Lecture.create(request.payload));
 
-	[err, lecture] = await tryCatchHelper(Lecture.create(request.payload));
-	if (err)
-		return Boom.badRequest('formatted error');
+  if (err) return Boom.badRequest('formatted error');
 
-	return h.response({ id: lecture.id });
-}
+  return h.response({ id: lecture.id });
+};
 
 const updateLecture = async (request, h) => {
-	const { id } = request.params;
-	let err, lecture;
+  const { id } = request.params;
 
-	[err, lecture] = await tryCatchHelper(Lecture.update(request.payload, { where: { id } }));
-	if (err)
-		return Boom.badRequest('formatted error');
+  const [err, lecture] = await tryCatchHelper(Lecture.update(request.payload, { where: { id } }));
 
-	return h.response({ id });
-}
+  if (err) return Boom.badRequest('formatted error');
+
+  return h.response({ id });
+};
 
 const deleteLecture = async (request, h) => {
-	const { id } = request.params;
-	let err, lecture;
+  const { id } = request.params;
 
-	[err, lecture] = await tryCatchHelper(Lecture.update({ deletedAt: new Date() }, { where: { id } }));
-	if (err)
-		return Boom.badRequest('formatted error');
+  const [err, lecture] = await tryCatchHelper(Lecture.update({ deletedAt: new Date() }, { where: { id } }));
 
-	return h.response();
-}
+  if (err) return Boom.badRequest('formatted error');
+
+  return h.response();
+};
 
 const lecturesCtrl = {
-	fetchAllLectures,
-	fetchLectureById,
-	createLecture,
-	updateLecture,
-	deleteLecture
-}
+  fetchAllLectures,
+  fetchLectureById,
+  createLecture,
+  updateLecture,
+  deleteLecture,
+};
 
 module.exports = lecturesCtrl;

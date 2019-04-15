@@ -1,5 +1,5 @@
-tokens = [];
+const tokens = [];
 
 module.exports = {
-	tokens
+  tokens,
 };

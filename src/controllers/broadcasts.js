@@ -3,48 +3,44 @@ const { Broadcast } = require('../models');
 const { tryCatchHelper } = require('../helpers/formatting');
 
 const fetchAllBroadcasts = async (request, h) => {
-	const broadcasts = await Broadcast.findAll();
+  const broadcasts = await Broadcast.findAll();
 
-	return h.response(broadcasts);
-}
+  return h.response(broadcasts);
+};
 
 const createBroadcast = async (request, h) => {
-	let err, broadcast;
+  const [err, broadcast] = await tryCatchHelper(Broadcast.create(request.payload));
 
-	[err, broadcast] = await tryCatchHelper(Broadcast.create(request.payload));
-	if (err)
-		return Boom.badRequest('formatted error');
+  if (err) return Boom.badRequest('formatted error');
 
-	return h.response({ id: broadcast.id });
-}
+  return h.response({ id: broadcast.id });
+};
 
 const updateBroadcast = async (request, h) => {
-	const { id } = request.params;
-	let err, broadcast;
+  const { id } = request.params;
 
-	[err, broadcast] = await tryCatchHelper(Broadcast.update(request.payload, { where: { id } }));
-	if (err)
-		return Boom.badRequest('formatted error');
+  const [err, broadcast] = await tryCatchHelper(Broadcast.update(request.payload, { where: { id } }));
 
-	return h.response({ id });
-}
+  if (err) return Boom.badRequest('formatted error');
+
+  return h.response({ id });
+};
 
 const deleteBroadcast = async (request, h) => {
-	const { id } = request.params;
-	let err, broadcast;
+  const { id } = request.params;
 
-	[err, broadcast] = await tryCatchHelper(Broadcast.destroy({ where: { id } }));
-	if (err)
-		return Boom.badRequest('formatted error');
+  const [err, broadcast] = await tryCatchHelper(Broadcast.destroy({ where: { id } }));
 
-	return h.response();
-}
+  if (err) return Boom.badRequest('formatted error');
+
+  return h.response();
+};
 
 const broadcastsCtrl = {
-	fetchAllBroadcasts,
-	createBroadcast,
-	updateBroadcast,
-	deleteBroadcast
-}
+  fetchAllBroadcasts,
+  createBroadcast,
+  updateBroadcast,
+  deleteBroadcast,
+};
 
 module.exports = broadcastsCtrl;

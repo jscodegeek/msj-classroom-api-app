@@ -1,22 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
-	const Message = sequelize.define('message', {
-		author: {
-			allowNull: false,
-			type: DataTypes.STRING
-		},
-		text: {
-			allowNull: false,
-			type: DataTypes.TEXT
-		},
-		type: {
-			allowNull: false,
-			type: DataTypes.STRING
-		}
-	}, {});
+  const Message = sequelize.define(
+    'message',
+    {
+      author: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      text: {
+        allowNull: false,
+        type: DataTypes.TEXT,
+      },
+      type: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+    },
+    {}
+  );
 
-	Message.associate = models => {
-		Message.belongsTo(models.Broadcast);
-	};    
+  Message.associate = models => {
+    Message.belongsTo(models.Broadcast);
+  };
 
-	return Message;
+  return Message;
 };

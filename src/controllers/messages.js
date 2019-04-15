@@ -3,24 +3,22 @@ const { Message } = require('../models');
 const { tryCatchHelper } = require('../helpers/formatting');
 
 const fetchAllMessages = async (request, h) => {
-	const messages = await Message.findAll();
+  const messages = await Message.findAll();
 
-	return h.response(messages);
-}
+  return h.response(messages);
+};
 
 const createMessage = async (request, h) => {
-	let err, message;
+  const [err, message] = await tryCatchHelper(Message.create(request.payload));
 
-	[err, message] = await tryCatchHelper(Message.create(request.payload));
-	if (err)
-		return Boom.badRequest('formatted error');
+  if (err) return Boom.badRequest('formatted error');
 
-	return h.response({ id: message.id });
-}
+  return h.response({ id: message.id });
+};
 
 const messagesCtrl = {
-	fetchAllMessages,
-	createMessage
-}
+  fetchAllMessages,
+  createMessage,
+};
 
 module.exports = messagesCtrl;

@@ -1,20 +1,22 @@
+const {
+  SERVER_HOST, SERVER_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE, JWT_SECRET_KEY,
+} = process.env;
+
 const server = {
-	host: process.env.SERVER_HOST,
-	port: process.env.SERVER_PORT,
-}
+  host: SERVER_HOST,
+  port: SERVER_PORT,
+};
 
 const db = {
-	username: process.env.DB_USERNAME,
-	password: process.env.DB_PASSWORD,
-	database: process.env.DB_DATABASE,
-	host: process.env.SERVER_HOST,
-	dialect: 'postgres',
-}
-
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+  username: DB_USERNAME,
+  password: DB_PASSWORD,
+  database: DB_DATABASE,
+  host: SERVER_HOST,
+  dialect: 'postgres',
+};
 
 module.exports = {
-	server,
-	db,
-	JWT_SECRET_KEY
-}
+  server,
+  db,
+  JWT_SECRET_KEY,
+};

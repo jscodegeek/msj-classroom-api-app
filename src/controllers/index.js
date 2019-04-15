@@ -1,6 +1,11 @@
+const broadcastsCtrl = require('./broadcasts');
+const lecturesCtrl = require('./lectures');
+const messagesCtrl = require('./messages');
+const usersCtrl = require('./users');
+
 module.exports = {
-	broadcastsCtrl: require('./broadcasts'),
-	lecturesCtrl: require('./lectures'),
-	messagesCtrl: require('./messages'),
-	usersCtrl: require('./users')
+  broadcastsCtrl,
+  lecturesCtrl,
+  messagesCtrl,
+  usersCtrl,
 };

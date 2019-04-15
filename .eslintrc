@@ -46,6 +46,10 @@
 		"one-var-declaration-per-line": "off",
 		"one-var": "off",
 		"no-tabs": "off",
-		"no-param-reassign": "off"
+		"no-param-reassign": "warn",
+		"array-element-newline": ["error", { "multiline": true, "minItems": 3 }],
+		"array-bracket-newline": ["error", { "minItems": 3 }],
+		"object-curly-newline": ["error", { "consistent": true }],
+		"indent": ["error", 2, { "ArrayExpression": 1 }]
   }
 }

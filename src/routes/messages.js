@@ -20,27 +20,25 @@ const broadcastId = Joi.number()
   .min(1)
   .required();
 
-const routes = [
-  {
-    method: 'GET',
-    path: '/messages',
-    handler: messagesCtrl.fetchAllMessages,
-  },
-  {
-    method: 'POST',
-    path: '/messages',
-    config: {
-      handler: messagesCtrl.createMessage,
-      validate: {
-        payload: {
-          author,
-          text,
-          type,
-          broadcastId,
-        },
+const routes = [{
+  method: 'GET',
+  path: '/messages',
+  handler: messagesCtrl.fetchAllMessages,
+},
+{
+  method: 'POST',
+  path: '/messages',
+  config: {
+    handler: messagesCtrl.createMessage,
+    validate: {
+      payload: {
+        author,
+        text,
+        type,
+        broadcastId,
       },
     },
   },
-];
+}];
 
 module.exports = routes;

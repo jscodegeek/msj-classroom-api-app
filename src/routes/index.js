@@ -9,4 +9,10 @@ const hc = {
   handler: (request, h) => h.response('Я, и моя молодая команда, делаем, что-то важное...'),
 };
 
-module.exports = [hc, ...broadcasts, ...lectures, ...messages, ...users];
+module.exports = [
+  hc,
+  ...broadcasts,
+  ...lectures,
+  ...messages,
+  ...users,
+];

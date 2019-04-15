@@ -12,7 +12,12 @@ const names = [
   'Living in the Internet of Things and Cyber Security part 1',
 ];
 
-const statuses = ['RESCHEDULED', 'ONLINE', 'CANCELED', 'ENDED'];
+const statuses = [
+  'RESCHEDULED',
+  'ONLINE',
+  'CANCELED',
+  'ENDED',
+];
 
 const broadcasts = _.times(8, n => ({
   name: `#${n + 1} ${names[n]}`,
@@ -20,10 +25,7 @@ const broadcasts = _.times(8, n => ({
   status: faker.random.arrayElement(statuses),
   createdAt: new Date(),
   updatedAt: new Date(),
-  lectureId: faker.random.number({
-    min: 1,
-    max: 8,
-  }),
+  lectureId: faker.random.number({ min: 1, max: 8 }),
 }));
 
 module.exports = {

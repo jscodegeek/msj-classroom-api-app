@@ -1,7 +1,12 @@
 const faker = require('faker');
 const _ = require('lodash');
 
-const types = ['TYPE 1', 'TYPE 2', 'TYPE 3', 'TYPE 4'];
+const types = [
+  'TYPE 1',
+  'TYPE 2',
+  'TYPE 3',
+  'TYPE 4',
+];
 
 const messages = _.times(8, n => ({
   author: `${faker.name.firstName()} ${faker.name.lastName()}`,
@@ -9,10 +14,7 @@ const messages = _.times(8, n => ({
   type: faker.random.arrayElement(types),
   createdAt: new Date(),
   updatedAt: new Date(),
-  broadcastId: faker.random.number({
-    min: 1,
-    max: 8,
-  }),
+  broadcastId: faker.random.number({ min: 1, max: 8 }),
 }));
 
 module.exports = {

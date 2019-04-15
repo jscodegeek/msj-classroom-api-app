@@ -11,7 +11,10 @@ const db = {
 	dialect: 'postgres',
 }
 
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+
 module.exports = {
 	server,
 	db,
+	JWT_SECRET_KEY
 }

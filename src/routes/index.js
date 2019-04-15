@@ -8,5 +8,6 @@ module.exports = [
 	hc,
 	...require('./broadcasts'),
 	...require('./lectures'),
-	...require('./messages')
+	...require('./messages'),
+	...require('./users')
 ];

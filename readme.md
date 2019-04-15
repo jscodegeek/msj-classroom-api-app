@@ -51,3 +51,10 @@ Application requires next actions to be done before using it:
 ### HOW TO add seeder:
 
 - [x] create seeder in [seeders](https://github.com/jscodegeek/msj-classroom-api-app/blob/master/src/seeders) folder using sequelize-cli `sequelize seed:generate --name YOUR_SEEDER_NAME` or you can apply your favourite approach, whatever it is.
+
+## PS:
+
+In case something went wrong(that is unlikely to happen) I recommend to shut down server and run:
+  1. sequelize db:migrate:undo:all
+  2. sequelize db:migrate
+  3. sequelize db:seed:all

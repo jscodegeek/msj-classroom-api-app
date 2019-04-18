@@ -29,6 +29,9 @@
     "standard": "^12.0.1"
   },
   "scripts": {
+		"db:migrate:up": "npx sequelize db:migrate",
+		"db:migrate:down": "npx sequelize db:migrate:undo:all",
+		"db:seed": "npx sequelize db:seed:all",
     "start": "node src/index.js",
     "start:watch": "nodemon src/index.js",
     "debug:vscode": "node --debug-brk --inspect src/index.js",

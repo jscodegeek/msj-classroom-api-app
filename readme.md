@@ -10,6 +10,8 @@ latest stable version of [PostgreSQL](https://www.postgresql.org/)
 
 for getting benefits from [sequelize-cli](https://github.com/sequelize/cli) install it with following command`npm i -g sequelize-cli`
 
+latest version of [npx](https://www.npmjs.com/package/npx) installed with -g flag
+
 for performing http requests(prepared in advance) to server for testing purposes You should install [Insomnia](https://insomnia.rest/) and import [Insomnia config file](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/Insomnia_msj-classroom-api-app.json).
 
 ## Getting Started
@@ -20,7 +22,12 @@ Application requires next actions to be done before using it:
 
 - clone repository `git clone git@github.com:jscodegeek/msj-classroom-api-app.git`
 
-- in order to install required dependencies run `npm i` or `yarn i`
+- in order to install required dependencies run `npm i` or `yarn install`
+
+- in order to **bootstrap PostgreSQL database** follow next instructions:
+
+	- [x] run `npm run db:migrate:up`
+	- [x] run `npm run db:seed`
 
 ***
 
@@ -63,6 +70,6 @@ Application requires next actions to be done before using it:
 ## PS:
 
 In case something went wrong(that is unlikely to happen) I recommend to shut down server and run:
-  1. sequelize db:migrate:undo:all
-  2. sequelize db:migrate
-  3. sequelize db:seed:all
+  - [x] `npm run db:migrate:down`
+  - [x] `npm run db:migrate:up`
+  - [x] `npm run db:seed`

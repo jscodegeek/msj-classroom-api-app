@@ -1,0 +1,22 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+		"outDir": "./build",
+    "allowJs": false,
+    "sourceMap": true,
+    "target": "ES2017",
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+		"module": "commonjs",
+		"baseUrl" : ".",
+		"paths": {
+			"*" : ["node_modules/@types/*", "*"]
+		}
+  },
+  "include": [
+    "./src/**/**.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

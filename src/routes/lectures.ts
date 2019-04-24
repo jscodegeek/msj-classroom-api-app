@@ -20,13 +20,19 @@ const routes = [
 	{
 		method: 'GET',
 		path: '/lectures',
-		handler: lecturesCtrl.fetchAllLectures,
+		config: {
+			handler: lecturesCtrl.fetchAllLectures,
+			tags: ['api', 'lectures'],
+			description: 'get all lectures',
+		},
 	},
 	{
 		method: 'GET',
 		path: '/lectures/{id}',
 		config: {
 			handler: lecturesCtrl.fetchLectureById,
+			tags: ['api', 'lectures'],
+			description: 'get lecture by id',
 			validate: {
 				params: {
 					id,
@@ -39,6 +45,8 @@ const routes = [
 		path: '/lectures',
 		config: {
 			handler: lecturesCtrl.createLecture,
+			tags: ['api', 'lectures'],
+			description: 'create new lecture',
 			validate: {
 				payload: {
 					title,
@@ -53,6 +61,8 @@ const routes = [
 		path: '/lectures/{id}',
 		config: {
 			handler: lecturesCtrl.updateLecture,
+			tags: ['api', 'lectures'],
+			description: 'update lecture by id',
 			validate: {
 				params: {
 					id,
@@ -70,6 +80,8 @@ const routes = [
 		path: '/lectures/{id}',
 		config: {
 			handler: lecturesCtrl.deleteLecture,
+			tags: ['api', 'lectures'],
+			description: 'delete lecture by id',
 			validate: {
 				params: {
 					id,

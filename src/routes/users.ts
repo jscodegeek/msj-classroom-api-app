@@ -35,13 +35,19 @@ const routes = [
 	{
 		method: 'GET',
 		path: '/users',
-		handler: usersCtrl.fetchAllUsers,
+		config: {
+			handler: usersCtrl.fetchAllUsers,
+			tags: ['api', 'users'],
+			description: 'get all users',
+		},
 	},
 	{
 		method: 'GET',
 		path: '/users/{id}',
 		config: {
 			handler: usersCtrl.fetchUserById,
+			tags: ['api', 'users'],
+			description: 'get user by id',
 			validate: {
 				params: {
 					id,
@@ -54,6 +60,8 @@ const routes = [
 		path: '/users/{id}',
 		config: {
 			handler: usersCtrl.updateUser,
+			tags: ['api', 'users'],
+			description: 'update user by id',
 			validate: {
 				params: {
 					id,
@@ -72,6 +80,8 @@ const routes = [
 		path: '/users/{id}',
 		config: {
 			handler: usersCtrl.deleteUser,
+			tags: ['api', 'users'],
+			description: 'delete user by id',
 			validate: {
 				params: {
 					id,
@@ -84,6 +94,8 @@ const routes = [
 		path: '/users',
 		config: {
 			handler: usersCtrl.signUp,
+			tags: ['api', 'users'],
+			description: 'sign up',
 			validate: {
 				payload: {
 					firstname,
@@ -99,6 +111,8 @@ const routes = [
 		path: '/login',
 		config: {
 			handler: usersCtrl.signIn,
+			tags: ['api', 'users'],
+			description: 'sign in',
 			validate: {
 				payload: {
 					login,
@@ -112,6 +126,8 @@ const routes = [
 		path: '/validateToken',
 		config: {
 			handler: usersCtrl.validateToken,
+			tags: ['api', 'users'],
+			description: 'validate token',
 			validate: {
 				payload: {
 					authToken,

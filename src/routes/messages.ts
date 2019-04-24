@@ -24,13 +24,19 @@ const routes = [
 	{
 		method: 'GET',
 		path: '/messages',
-		handler: messagesCtrl.fetchAllMessages,
+		config: {
+			handler: messagesCtrl.fetchAllMessages,
+			tags: ['api', 'messages'],
+			description: 'get all messages',
+		},
 	},
 	{
 		method: 'POST',
 		path: '/messages',
 		config: {
 			handler: messagesCtrl.createMessage,
+			tags: ['api', 'messages'],
+			description: 'create new message',
 			validate: {
 				payload: {
 					author,

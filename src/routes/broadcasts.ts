@@ -28,13 +28,19 @@ const routes = [
 	{
 		method: 'GET',
 		path: '/broadcasts',
-		handler: broadcastsCtrl.fetchAllBroadcasts,
+		config: {
+			handler: broadcastsCtrl.fetchAllBroadcasts,
+			tags: ['api', 'broadcasts'],
+			description: 'get all broadcasts',
+		},
 	},
 	{
 		method: 'POST',
 		path: '/broadcasts',
 		config: {
 			handler: broadcastsCtrl.createBroadcast,
+			tags: ['api', 'broadcasts'],
+			description: 'create new broadcast',
 			validate: {
 				payload: {
 					name,
@@ -50,6 +56,8 @@ const routes = [
 		path: '/broadcasts/{id}',
 		config: {
 			handler: broadcastsCtrl.updateBroadcast,
+			tags: ['api', 'broadcasts'],
+			description: 'update broadcast by id',
 			validate: {
 				params: {
 					id,
@@ -68,6 +76,8 @@ const routes = [
 		path: '/broadcasts/{id}',
 		config: {
 			handler: broadcastsCtrl.deleteBroadcast,
+			tags: ['api', 'broadcasts'],
+			description: 'delete broadcast by id',
 			validate: {
 				params: {
 					id,

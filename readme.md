@@ -12,6 +12,8 @@ project uses [sequelize-cli](https://github.com/sequelize/cli) in order to apply
 
 latest version of [npx](https://www.npmjs.com/package/npx) installed with -g flag
 
+project uses [Swagger](https://swagger.io/) in order to document and visualize api endpoints.
+
 for performing http requests(prepared in advance) to server for testing purposes You should install [Insomnia](https://insomnia.rest/) and import [Insomnia config file](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/Insomnia_msj-classroom-api-app.json).
 
 ## Getting Started
@@ -31,12 +33,27 @@ Application requires next actions to be done before using it:
 
 ---
 
+## SWAGGER:
+
+Add route documentation for swagger in route config, for instance:
+
+```
+	config: {
+		handler: broadcastsCtrl.fetchAllBroadcasts,
+		tags: ['api', 'broadcasts'],
+		description: 'get all broadcasts',
+	}
+```
+
+open `{host}:{port}/api/documentation` in browser and be ~~happy~~ hapi
+
 ## Contributing:
 
 ### PUSH PREPARATION
 
 - [x] run `npm run build`
 - [x] run `npm run lint:fix`
+- [x] perform steps described in [Swagger](https://github.com/jscodegeek/msj-classroom-api-app#swagger) section
 
 ---
 
@@ -55,6 +72,7 @@ Application requires next actions to be done before using it:
 - [x] in case you create new file(for routes) you should add it to [index](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/src/routes/index.ts)
 - [x] create handler for route in [controllers](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/src/controllers) folder
 - [x] in case you create new file(for handlers) you should add it to [index](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/src/controllers/index.ts)
+- [x] perform steps described in [Swagger](https://github.com/jscodegeek/msj-classroom-api-app#swagger) section
 
 ---
 

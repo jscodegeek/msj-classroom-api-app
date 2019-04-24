@@ -15,6 +15,10 @@ const id = Joi.number()
 	.integer()
 	.min(1)
 	.required();
+const courseId = Joi.number()
+	.integer()
+	.min(1)
+	.required();
 
 const routes = [
 	{
@@ -52,6 +56,7 @@ const routes = [
 					title,
 					description,
 					scheduledTime,
+					courseId,
 				},
 			},
 		},
@@ -71,6 +76,7 @@ const routes = [
 					title,
 					description,
 					scheduledTime,
+					courseId,
 				},
 			},
 		},

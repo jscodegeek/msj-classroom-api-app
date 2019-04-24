@@ -1,10 +1,10 @@
 import * as Sequelize from 'sequelize';
 
-export default class Lecture extends Sequelize.Model {
+export default class Course extends Sequelize.Model {
 	static init(sequelize, DataTypes) {
 		super.init(
 			{
-				title: {
+				name: {
 					allowNull: false,
 					unique: true,
 					type: DataTypes.STRING,
@@ -13,9 +13,13 @@ export default class Lecture extends Sequelize.Model {
 					allowNull: false,
 					type: DataTypes.TEXT,
 				},
-				scheduledTime: {
+				startDate: {
 					allowNull: false,
 					type: DataTypes.DATE,
+				},
+				imageUrl: {
+					allowNull: false,
+					type: DataTypes.STRING,
 				},
 				deletedAt: DataTypes.DATE,
 			},
@@ -24,16 +28,15 @@ export default class Lecture extends Sequelize.Model {
 				timestamps: true,
 				freezeTableName: true,
 				paranoid: true,
-				tableName: 'lectures',
-				modelName: 'lecture',
+				tableName: 'courses',
+				modelName: 'course',
 			},
 		);
 
-		return Lecture;
+		return Course;
 	}
 
 	static associate(models) {
-		Lecture.belongsTo(models.Course);
-		Lecture.hasMany(models.Broadcast, { onDelete: 'CASCADE' });
+		Course.hasMany(models.Lecture, { onDelete: 'CASCADE' });
 	}
 }

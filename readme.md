@@ -87,13 +87,13 @@ open `{host}:{port}/api/documentation` in browser and be ~~happy~~ hapi
 
 ### HOW TO add migration:
 
-- [x] create migration in [migrations](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/db/migrations) folder using sequelize-cli `npx sequelize migration:generate --name YOUR_MIGRATION_NAME --attributes columnName:columnType` or you can apply your favourite approach, whatever it is.
+- [x] create migration in [migrations](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/db/migrations) folder using sequelize-cli `npx sequelize migration:generate --name YOUR_MIGRATION_NAME` or you can apply your favourite approach, whatever it is.
 
 ---
 
 ### HOW TO add seeder:
 
-- [x] create seeder in [seeders](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/db/seeders) folder using sequelize-cli `npx sequelize seed:generate --name YOUR_SEEDER_NAME --attributes columnName:columnType` or you can apply your favourite approach, whatever it is.
+- [x] create seeder in [seeders](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/db/seeders) folder using sequelize-cli `npx sequelize seed:generate --name YOUR_SEEDER_NAME` or you can apply your favourite approach, whatever it is.
 
 ## PS:
 

@@ -19,6 +19,7 @@ const lectures = _.times(8, n => ({
 	deletedAt: null,
 	createdAt: new Date(),
 	updatedAt: new Date(),
+	courseId: faker.random.number({ min: 1, max: 4 }),
 }));
 
 module.exports = {

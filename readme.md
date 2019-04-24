@@ -12,9 +12,7 @@ project uses [sequelize-cli](https://github.com/sequelize/cli) in order to apply
 
 latest version of [npx](https://www.npmjs.com/package/npx) installed with -g flag
 
-project uses [Swagger](https://swagger.io/) in order to document and visualize api endpoints.
-
-for performing http requests(prepared in advance) to server for testing purposes You should install [Insomnia](https://insomnia.rest/) and import [Insomnia config file](https://github.com/jscodegeek/msj-classroom-api-app/tree/master/Insomnia_msj-classroom-api-app.json).
+project uses [Swagger](https://swagger.io/) in order to document and visualize api endpoints. In addition you can perform http requests to server for testing purposes.
 
 ## Getting Started
 

@@ -21,9 +21,6 @@ export default class Broadcast extends Sequelize.Model {
 			},
 			{
 				sequelize,
-				timestamps: true,
-				freezeTableName: true,
-				tableName: 'broadcasts',
 				modelName: 'broadcast',
 			},
 		);

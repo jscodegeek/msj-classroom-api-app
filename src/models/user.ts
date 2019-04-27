@@ -38,12 +38,11 @@ export default class User extends Sequelize.Model {
 					allowNull: false,
 					type: DataTypes.STRING,
 				},
+				deletedAt: Sequelize.DATE,
 			},
 			{
 				sequelize,
-				timestamps: true,
-				freezeTableName: true,
-				tableName: 'users',
+				paranoid: true,
 				modelName: 'user',
 				hooks: {
 					beforeCreate: hashPassword,
@@ -87,4 +86,30 @@ export default class User extends Sequelize.Model {
 
 		return token;
 	};
+
+	static associate(models) {
+		User.belongsToMany(models.Course, {
+			foreignKey: 'userId',
+			constraints: false,
+			through: {
+				model: models.Subscription,
+				unique: false,
+				scope: {
+					subscribable: 'course',
+				},
+			},
+		});
+
+		User.belongsToMany(models.Lecture, {
+			foreignKey: 'userId',
+			constraints: false,
+			through: {
+				model: models.Subscription,
+				unique: false,
+				scope: {
+					subscribable: 'lecture',
+				},
+			},
+		});
+	}
 }

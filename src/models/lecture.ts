@@ -21,10 +21,7 @@ export default class Lecture extends Sequelize.Model {
 			},
 			{
 				sequelize,
-				timestamps: true,
-				freezeTableName: true,
 				paranoid: true,
-				tableName: 'lectures',
 				modelName: 'lecture',
 			},
 		);
@@ -35,5 +32,17 @@ export default class Lecture extends Sequelize.Model {
 	static associate(models) {
 		Lecture.belongsTo(models.Course);
 		Lecture.hasMany(models.Broadcast, { onDelete: 'CASCADE' });
+
+		Lecture.belongsToMany(models.User, {
+			foreignKey: 'subscribableId',
+			constraints: false,
+			through: {
+				model: models.Subscription,
+				unique: false,
+				scope: {
+					subscribable: 'lecture',
+				},
+			},
+		});
 	}
 }

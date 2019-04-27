@@ -12,8 +12,8 @@
 		"start:watch": "npx nodemon",
 		"build": "npx tsc",
 		"debug:vscode": "node --debug-brk --inspect -r ts-node/register ./src/index.ts",
-		"lint": "npx eslint src/**/*.{ts,tsx} --color",
-		"lint:fix": "npx eslint --fix src/**/*.{ts,tsx} --color"
+		"lint": "npx eslint ./src/**/*.{ts,tsx} --color",
+		"lint:fix": "npx eslint --fix ./src/**/*.{ts,tsx} --color"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
@@ -45,6 +45,7 @@
 		"eslint-config-airbnb": "^17.1.0",
 		"eslint-config-airbnb-typescript": "^3.0.0",
 		"eslint-config-prettier": "^4.1.0",
+		"eslint-plugin-import": "^2.17.2",
 		"eslint-plugin-prettier": "^3.0.1",
 		"nodemon": "^1.18.11",
 		"prettier": "^1.17.0",

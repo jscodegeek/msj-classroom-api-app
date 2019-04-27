@@ -1,24 +1,5 @@
-import * as Joi from 'joi';
 import { messagesCtrl } from '../controllers';
-
-const author = Joi.string()
-	.max(100)
-	.trim()
-	.min(1)
-	.required();
-const text = Joi.string()
-	.max(10000)
-	.min(1)
-	.required();
-const type = Joi.string()
-	.max(20)
-	.trim()
-	.min(1)
-	.required();
-const broadcastId = Joi.number()
-	.integer()
-	.min(1)
-	.required();
+import { id, author, text, type } from './variables';
 
 const routes = [
 	{
@@ -42,7 +23,7 @@ const routes = [
 					author,
 					text,
 					type,
-					broadcastId,
+					broadcastId: id,
 				},
 			},
 		},

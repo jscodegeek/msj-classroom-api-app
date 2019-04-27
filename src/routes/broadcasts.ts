@@ -1,28 +1,5 @@
-import * as Joi from 'joi';
 import { broadcastsCtrl } from '../controllers';
-
-const name = Joi.string()
-	.max(200)
-	.trim()
-	.min(1)
-	.required();
-const pincode = Joi.number()
-	.integer()
-	.min(1)
-	.required();
-const status = Joi.string()
-	.max(20)
-	.trim()
-	.min(1)
-	.required();
-const id = Joi.number()
-	.integer()
-	.min(1)
-	.required();
-const lectureId = Joi.number()
-	.integer()
-	.min(1)
-	.required();
+import { id, name, pincode, status } from './variables';
 
 const routes = [
 	{
@@ -46,7 +23,7 @@ const routes = [
 					name,
 					pincode,
 					status,
-					lectureId,
+					lectureId: id,
 				},
 			},
 		},
@@ -66,7 +43,7 @@ const routes = [
 					name,
 					pincode,
 					status,
-					lectureId,
+					lectureId: id,
 				},
 			},
 		},

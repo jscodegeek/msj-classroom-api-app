@@ -1,13 +1,11 @@
 import * as Boom from 'boom';
 import Helpers from '../helpers';
-import { Lecture } from '../models';
+import { Lecture, User } from '../models';
 
 const fetchAllLectures = async (request, h) => {
-	const lectures = await Lecture.findAll();
+	const lectures = await Lecture.findAll({ include: [{ model: User }] });
 
-	const filteredLectures = lectures.filter(lecture => lecture.deletedAt === null);
-
-	return h.response(filteredLectures);
+	return h.response(lectures);
 };
 
 const fetchLectureById = async (request, h) => {

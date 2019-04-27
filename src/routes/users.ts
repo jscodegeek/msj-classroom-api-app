@@ -1,35 +1,5 @@
-import * as Joi from 'joi';
 import { usersCtrl } from '../controllers';
-
-const firstname = Joi.string()
-	.max(200)
-	.trim()
-	.min(1)
-	.required();
-const lastname = Joi.string()
-	.max(200)
-	.trim()
-	.min(1)
-	.required();
-const login = Joi.string()
-	.max(200)
-	.trim()
-	.min(1)
-	.required();
-const password = Joi.string()
-	.max(200)
-	.trim()
-	.min(1)
-	.required();
-const id = Joi.number()
-	.integer()
-	.min(1)
-	.required();
-const authToken = Joi.string()
-	.max(2000)
-	.trim()
-	.min(1)
-	.required();
+import { id, firstname, lastname, login, password, subscribable, authToken } from './variables';
 
 const routes = [
 	{
@@ -131,6 +101,42 @@ const routes = [
 			validate: {
 				payload: {
 					authToken,
+				},
+			},
+		},
+	},
+	{
+		method: 'POST',
+		path: '/users/{userId}/subscribe',
+		config: {
+			handler: usersCtrl.subscribe,
+			tags: ['api', 'users'],
+			description: 'subscribe user to course or lecture',
+			validate: {
+				params: {
+					userId: id,
+				},
+				payload: {
+					entity: subscribable,
+					id,
+				},
+			},
+		},
+	},
+	{
+		method: 'POST',
+		path: '/users/{userId}/unsubscribe',
+		config: {
+			handler: usersCtrl.unsubscribe,
+			tags: ['api', 'users'],
+			description: 'unsubscribe user from course or lecture',
+			validate: {
+				params: {
+					userId: id,
+				},
+				payload: {
+					entity: subscribable,
+					id,
 				},
 			},
 		},

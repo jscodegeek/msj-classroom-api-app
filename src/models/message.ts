@@ -19,9 +19,6 @@ export default class Message extends Sequelize.Model {
 			},
 			{
 				sequelize,
-				timestamps: true,
-				freezeTableName: true,
-				tableName: 'messages',
 				modelName: 'message',
 			},
 		);

@@ -1,9 +1,9 @@
 import * as Boom from 'boom';
 import Helpers from '../helpers';
-import { User } from '../models';
+import { User, Lecture, Course, Subscription } from '../models';
 
 const fetchAllUsers = async (request, h) => {
-	const users = await User.findAll();
+	const users = await User.findAll({ include: [{ model: Course }, { model: Lecture }] });
 
 	return h.response(users);
 };
@@ -29,9 +29,10 @@ const updateUser = async (request, h) => {
 const deleteUser = async (request, h) => {
 	const { id } = request.params;
 
-	const [err, user] = await Helpers.tryCatch(User.update({ deletedAt: new Date() }, { where: { id } }));
+	const user = await User.findByPk(id);
+	if (user === null) return Boom.notFound();
 
-	if (err) return Boom.badRequest(err);
+	await User.destroy({ where: { id } });
 
 	return h.response();
 };
@@ -66,6 +67,46 @@ const validateToken = async (request, h) => {
 	return h.response();
 };
 
+const subscribe = async (request, h) => {
+	const { userId } = request.params;
+	const { entity, id } = request.payload;
+
+	const [err, subscription] = await Helpers.tryCatch(
+		Subscription.create({
+			userId,
+			subscribable: entity,
+			subscribableId: id,
+		}),
+	);
+	if (err) return Boom.badRequest(err);
+
+	return h.response();
+};
+
+const unsubscribe = async (request, h) => {
+	const { userId } = request.params;
+	const { entity, id } = request.payload;
+
+	const subscription = await Subscription.findOne({
+		where: {
+			userId,
+			subscribable: entity,
+			subscribableId: id,
+		},
+	});
+	if (subscription === null) return Boom.notFound();
+
+	await Subscription.destroy({
+		where: {
+			userId,
+			subscribable: entity,
+			subscribableId: id,
+		},
+	});
+
+	return h.response();
+};
+
 export default {
 	fetchAllUsers,
 	fetchUserById,
@@ -74,4 +115,6 @@ export default {
 	signIn,
 	signUp,
 	validateToken,
+	subscribe,
+	unsubscribe,
 };

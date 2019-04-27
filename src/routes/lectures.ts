@@ -1,24 +1,5 @@
-import * as Joi from 'joi';
 import { lecturesCtrl } from '../controllers';
-
-const title = Joi.string()
-	.max(200)
-	.trim()
-	.min(1)
-	.required();
-const description = Joi.string()
-	.max(10000)
-	.min(1)
-	.required();
-const scheduledTime = Joi.date().required();
-const id = Joi.number()
-	.integer()
-	.min(1)
-	.required();
-const courseId = Joi.number()
-	.integer()
-	.min(1)
-	.required();
+import { id, name, date, description } from './variables';
 
 const routes = [
 	{
@@ -53,10 +34,10 @@ const routes = [
 			description: 'create new lecture',
 			validate: {
 				payload: {
-					title,
+					title: name,
 					description,
-					scheduledTime,
-					courseId,
+					scheduledTime: date,
+					courseId: id,
 				},
 			},
 		},
@@ -73,10 +54,10 @@ const routes = [
 					id,
 				},
 				payload: {
-					title,
+					title: name,
 					description,
-					scheduledTime,
-					courseId,
+					scheduledTime: date,
+					courseId: id,
 				},
 			},
 		},

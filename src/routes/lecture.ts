@@ -1,4 +1,4 @@
-import { lecturesCtrl } from '../controllers';
+import { lectureCtrl } from '../controllers';
 import { id, name, date, description } from './variables';
 
 const routes = [
@@ -6,18 +6,18 @@ const routes = [
 		method: 'GET',
 		path: '/lectures',
 		config: {
-			handler: lecturesCtrl.fetchAllLectures,
+			handler: lectureCtrl.fetchAllLectures,
 			tags: ['api', 'lectures'],
-			description: 'get all lectures',
+			description: 'fetch all lectures',
 		},
 	},
 	{
 		method: 'GET',
 		path: '/lectures/{id}',
 		config: {
-			handler: lecturesCtrl.fetchLectureById,
+			handler: lectureCtrl.fetchLectureById,
 			tags: ['api', 'lectures'],
-			description: 'get lecture by id',
+			description: 'fetch lecture by id',
 			validate: {
 				params: {
 					id,
@@ -29,7 +29,7 @@ const routes = [
 		method: 'POST',
 		path: '/lectures',
 		config: {
-			handler: lecturesCtrl.createLecture,
+			handler: lectureCtrl.createLecture,
 			tags: ['api', 'lectures'],
 			description: 'create new lecture',
 			validate: {
@@ -46,7 +46,7 @@ const routes = [
 		method: 'PUT',
 		path: '/lectures/{id}',
 		config: {
-			handler: lecturesCtrl.updateLecture,
+			handler: lectureCtrl.updateLecture,
 			tags: ['api', 'lectures'],
 			description: 'update lecture by id',
 			validate: {
@@ -66,7 +66,7 @@ const routes = [
 		method: 'DELETE',
 		path: '/lectures/{id}',
 		config: {
-			handler: lecturesCtrl.deleteLecture,
+			handler: lectureCtrl.deleteLecture,
 			tags: ['api', 'lectures'],
 			description: 'delete lecture by id',
 			validate: {

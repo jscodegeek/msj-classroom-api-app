@@ -1,8 +1,10 @@
-import broadcasts from './broadcasts';
-import courses from './courses';
-import lectures from './lectures';
-import messages from './messages';
-import users from './users';
+import auth from './auth';
+import broadcast from './broadcast';
+import course from './course';
+import lecture from './lecture';
+import me from './me';
+import message from './message';
+import user from './user';
 
 const hc = {
 	method: 'GET',
@@ -10,4 +12,13 @@ const hc = {
 	handler: (request, h) => h.response('Я, и моя молодая команда, делаем, что-то важное...'),
 };
 
-export default [hc, ...broadcasts, ...courses, ...lectures, ...messages, ...users];
+export default [
+	hc, //
+	...auth,
+	...broadcast,
+	...course,
+	...lecture,
+	...me,
+	...message,
+	...user,
+];

@@ -9,7 +9,9 @@ const fetchAllUsers = async (request, h) => {
 };
 
 const fetchUserById = async (request, h) => {
-	const { id } = request.params;
+	const {
+		params: { id },
+	} = request;
 
 	const user = await User.findByPk(id);
 
@@ -17,17 +19,21 @@ const fetchUserById = async (request, h) => {
 };
 
 const updateUser = async (request, h) => {
-	const { id } = request.params;
+	const {
+		payload,
+		params: { id },
+	} = request;
 
-	const [err, user] = await Helpers.tryCatch(User.update(request.payload, { where: { id } }));
-
+	const [err, user] = await Helpers.tryCatch(User.update(payload, { where: { id } }));
 	if (err) return Boom.badRequest(err);
 
-	return h.response();
+	return h.response(user);
 };
 
 const deleteUser = async (request, h) => {
-	const { id } = request.params;
+	const {
+		params: { id },
+	} = request;
 
 	const user = await User.findByPk(id);
 	if (user === null) return Boom.notFound();
@@ -37,39 +43,11 @@ const deleteUser = async (request, h) => {
 	return h.response();
 };
 
-const signIn = async (request, h) => {
-	const [err, user] = await User.findByCredentials(request.payload);
-
-	if (err) return Boom.badRequest(err);
-
-	const authToken = User.generateJwtToken(user);
-
-	return h.response({ authToken });
-};
-
-const signUp = async (request, h) => {
-	const [err, user] = await Helpers.tryCatch(User.create({ ...request.payload, role: 'STUDENT' }));
-
-	if (err) return Boom.badRequest(err);
-
-	const authToken = User.generateJwtToken(user.dataValues);
-
-	return h.response({ authToken });
-};
-
-const validateToken = async (request, h) => {
-	const { authToken } = request.payload;
-
-	const [err, decoded] = User.decodeToken(authToken);
-
-	if (err) return Boom.badRequest(err);
-
-	return h.response();
-};
-
 const subscribe = async (request, h) => {
-	const { userId } = request.params;
-	const { entity, id } = request.payload;
+	const {
+		payload: { entity, id },
+		params: { userId },
+	} = request;
 
 	const [err, subscription] = await Helpers.tryCatch(
 		Subscription.create({
@@ -84,8 +62,10 @@ const subscribe = async (request, h) => {
 };
 
 const unsubscribe = async (request, h) => {
-	const { userId } = request.params;
-	const { entity, id } = request.payload;
+	const {
+		payload: { entity, id },
+		params: { userId },
+	} = request;
 
 	const subscription = await Subscription.findOne({
 		where: {
@@ -112,9 +92,6 @@ export default {
 	fetchUserById,
 	updateUser,
 	deleteUser,
-	signIn,
-	signUp,
-	validateToken,
 	subscribe,
 	unsubscribe,
 };

@@ -1,4 +1,4 @@
-import { messagesCtrl } from '../controllers';
+import { messageCtrl } from '../controllers';
 import { id, author, text, type } from './variables';
 
 const routes = [
@@ -6,16 +6,16 @@ const routes = [
 		method: 'GET',
 		path: '/messages',
 		config: {
-			handler: messagesCtrl.fetchAllMessages,
+			handler: messageCtrl.fetchAllMessages,
 			tags: ['api', 'messages'],
-			description: 'get all messages',
+			description: 'fetch all messages',
 		},
 	},
 	{
 		method: 'POST',
 		path: '/messages',
 		config: {
-			handler: messagesCtrl.createMessage,
+			handler: messageCtrl.createMessage,
 			tags: ['api', 'messages'],
 			description: 'create new message',
 			validate: {

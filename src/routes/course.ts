@@ -1,4 +1,4 @@
-import { coursesCtrl } from '../controllers';
+import { courseCtrl } from '../controllers';
 import { id, name, description, date, imageUrl } from './variables';
 
 const routes = [
@@ -6,18 +6,18 @@ const routes = [
 		method: 'GET',
 		path: '/courses',
 		config: {
-			handler: coursesCtrl.fetchAllCourses,
+			handler: courseCtrl.fetchAllCourses,
 			tags: ['api', 'courses'],
-			description: 'get all courses',
+			description: 'fetch all courses',
 		},
 	},
 	{
 		method: 'GET',
 		path: '/courses/{id}',
 		config: {
-			handler: coursesCtrl.fetchCourseById,
+			handler: courseCtrl.fetchCourseById,
 			tags: ['api', 'courses'],
-			description: 'get course by id',
+			description: 'fetch course by id',
 			validate: {
 				params: {
 					id,
@@ -29,7 +29,7 @@ const routes = [
 		method: 'POST',
 		path: '/courses',
 		config: {
-			handler: coursesCtrl.createCourse,
+			handler: courseCtrl.createCourse,
 			tags: ['api', 'courses'],
 			description: 'create new course',
 			validate: {
@@ -46,7 +46,7 @@ const routes = [
 		method: 'PUT',
 		path: '/courses/{id}',
 		config: {
-			handler: coursesCtrl.updateCourse,
+			handler: courseCtrl.updateCourse,
 			tags: ['api', 'courses'],
 			description: 'update course by id',
 			validate: {
@@ -66,7 +66,7 @@ const routes = [
 		method: 'DELETE',
 		path: '/courses/{id}',
 		config: {
-			handler: coursesCtrl.deleteCourse,
+			handler: courseCtrl.deleteCourse,
 			tags: ['api', 'courses'],
 			description: 'delete course by id',
 			validate: {

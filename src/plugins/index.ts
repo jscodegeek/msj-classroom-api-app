@@ -1,6 +1,10 @@
-import * as Inert from 'inert';
-import * as Vision from 'vision';
+import initSwagger from './swagger';
+import initAuth from './auth';
 
-import Swagger from './swagger';
+export default async server => {
+	initAuth(server);
 
-export default [Inert, Vision, Swagger];
+	return Promise.all([
+		initSwagger(server), //
+	]);
+};

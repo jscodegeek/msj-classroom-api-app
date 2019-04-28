@@ -9,8 +9,9 @@ const fetchAllMessages = async (request, h) => {
 };
 
 const createMessage = async (request, h) => {
-	const [err, message] = await Helpers.tryCatch(Message.create(request.payload));
+	const { payload } = request;
 
+	const [err, message] = await Helpers.tryCatch(Message.create(payload));
 	if (err) return Boom.badRequest(err);
 
 	return h.response({ id: message.id });

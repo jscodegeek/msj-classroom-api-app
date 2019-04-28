@@ -16,6 +16,8 @@ module.exports =  {
 		"@typescript-eslint/explicit-member-accessibility": "off",
 		"@typescript-eslint/no-var-requires": "warn",
 		"no-param-reassign": "warn",
-		"prettier/prettier": ["error", {"useTabs": true}]
+		"prettier/prettier": ["error", {"useTabs": true}],
+		"array-element-newline": ["error", "consistent"],
+		"array-bracket-newline": ["error", "consistent"]
   },
 };

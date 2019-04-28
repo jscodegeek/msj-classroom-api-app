@@ -1,4 +1,4 @@
-import { broadcastsCtrl } from '../controllers';
+import { broadcastCtrl } from '../controllers';
 import { id, name, pincode, status } from './variables';
 
 const routes = [
@@ -6,16 +6,16 @@ const routes = [
 		method: 'GET',
 		path: '/broadcasts',
 		config: {
-			handler: broadcastsCtrl.fetchAllBroadcasts,
+			handler: broadcastCtrl.fetchAllBroadcasts,
 			tags: ['api', 'broadcasts'],
-			description: 'get all broadcasts',
+			description: 'fetch all broadcasts',
 		},
 	},
 	{
 		method: 'POST',
 		path: '/broadcasts',
 		config: {
-			handler: broadcastsCtrl.createBroadcast,
+			handler: broadcastCtrl.createBroadcast,
 			tags: ['api', 'broadcasts'],
 			description: 'create new broadcast',
 			validate: {
@@ -32,7 +32,7 @@ const routes = [
 		method: 'PUT',
 		path: '/broadcasts/{id}',
 		config: {
-			handler: broadcastsCtrl.updateBroadcast,
+			handler: broadcastCtrl.updateBroadcast,
 			tags: ['api', 'broadcasts'],
 			description: 'update broadcast by id',
 			validate: {
@@ -52,7 +52,7 @@ const routes = [
 		method: 'DELETE',
 		path: '/broadcasts/{id}',
 		config: {
-			handler: broadcastsCtrl.deleteBroadcast,
+			handler: broadcastCtrl.deleteBroadcast,
 			tags: ['api', 'broadcasts'],
 			description: 'delete broadcast by id',
 			validate: {

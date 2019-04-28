@@ -1,4 +1,4 @@
-import { usersCtrl } from '../controllers';
+import { userCtrl } from '../controllers';
 import { id, firstname, lastname, login, password, subscribable, authToken } from './variables';
 
 const routes = [
@@ -6,18 +6,18 @@ const routes = [
 		method: 'GET',
 		path: '/users',
 		config: {
-			handler: usersCtrl.fetchAllUsers,
+			handler: userCtrl.fetchAllUsers,
 			tags: ['api', 'users'],
-			description: 'get all users',
+			description: 'fetch all users',
 		},
 	},
 	{
 		method: 'GET',
 		path: '/users/{id}',
 		config: {
-			handler: usersCtrl.fetchUserById,
+			handler: userCtrl.fetchUserById,
 			tags: ['api', 'users'],
-			description: 'get user by id',
+			description: 'fetch user by id',
 			validate: {
 				params: {
 					id,
@@ -29,7 +29,7 @@ const routes = [
 		method: 'PUT',
 		path: '/users/{id}',
 		config: {
-			handler: usersCtrl.updateUser,
+			handler: userCtrl.updateUser,
 			tags: ['api', 'users'],
 			description: 'update user by id',
 			validate: {
@@ -49,7 +49,7 @@ const routes = [
 		method: 'DELETE',
 		path: '/users/{id}',
 		config: {
-			handler: usersCtrl.deleteUser,
+			handler: userCtrl.deleteUser,
 			tags: ['api', 'users'],
 			description: 'delete user by id',
 			validate: {
@@ -61,55 +61,9 @@ const routes = [
 	},
 	{
 		method: 'POST',
-		path: '/users',
-		config: {
-			handler: usersCtrl.signUp,
-			tags: ['api', 'users'],
-			description: 'sign up',
-			validate: {
-				payload: {
-					firstname,
-					lastname,
-					login,
-					password,
-				},
-			},
-		},
-	},
-	{
-		method: 'POST',
-		path: '/login',
-		config: {
-			handler: usersCtrl.signIn,
-			tags: ['api', 'users'],
-			description: 'sign in',
-			validate: {
-				payload: {
-					login,
-					password,
-				},
-			},
-		},
-	},
-	{
-		method: 'POST',
-		path: '/validateToken',
-		config: {
-			handler: usersCtrl.validateToken,
-			tags: ['api', 'users'],
-			description: 'validate token',
-			validate: {
-				payload: {
-					authToken,
-				},
-			},
-		},
-	},
-	{
-		method: 'POST',
 		path: '/users/{userId}/subscribe',
 		config: {
-			handler: usersCtrl.subscribe,
+			handler: userCtrl.subscribe,
 			tags: ['api', 'users'],
 			description: 'subscribe user to course or lecture',
 			validate: {
@@ -127,7 +81,7 @@ const routes = [
 		method: 'POST',
 		path: '/users/{userId}/unsubscribe',
 		config: {
-			handler: usersCtrl.unsubscribe,
+			handler: userCtrl.unsubscribe,
 			tags: ['api', 'users'],
 			description: 'unsubscribe user from course or lecture',
 			validate: {

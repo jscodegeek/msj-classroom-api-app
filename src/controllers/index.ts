@@ -1,11 +1,15 @@
-import broadcasts from './broadcasts';
-import courses from './courses';
-import lectures from './lectures';
-import messages from './messages';
-import users from './users';
+import auth from './auth';
+import broadcast from './broadcast';
+import course from './course';
+import lecture from './lecture';
+import me from './me';
+import message from './message';
+import user from './user';
 
-export const broadcastsCtrl = broadcasts;
-export const coursesCtrl = courses;
-export const lecturesCtrl = lectures;
-export const messagesCtrl = messages;
-export const usersCtrl = users;
+export const authCtrl = auth;
+export const broadcastCtrl = broadcast;
+export const courseCtrl = course;
+export const lectureCtrl = lecture;
+export const meCtrl = me;
+export const messageCtrl = message;
+export const userCtrl = user;

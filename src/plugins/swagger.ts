@@ -1,3 +1,5 @@
+import * as Inert from 'inert';
+import * as Vision from 'vision';
 import * as HapiSwagger from 'hapi-swagger';
 
 const options = {
@@ -8,7 +10,13 @@ const options = {
 	grouping: 'tags',
 };
 
-export default {
-	plugin: HapiSwagger,
-	options,
+export default async server => {
+	await server.register([
+		Inert,
+		Vision,
+		{
+			plugin: HapiSwagger,
+			options,
+		},
+	]);
 };

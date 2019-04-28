@@ -9,25 +9,30 @@ const fetchAllBroadcasts = async (request, h) => {
 };
 
 const createBroadcast = async (request, h) => {
-	const [err, broadcast] = await Helpers.tryCatch(Broadcast.create(request.payload));
+	const { payload } = request;
 
+	const [err, broadcast] = await Helpers.tryCatch(Broadcast.create(payload));
 	if (err) return Boom.badRequest(err);
 
 	return h.response({ id: broadcast.id });
 };
 
 const updateBroadcast = async (request, h) => {
-	const { id } = request.params;
+	const {
+		payload,
+		params: { id },
+	} = request;
 
-	const [err, broadcast] = await Helpers.tryCatch(Broadcast.update(request.payload, { where: { id } }));
-
+	const [err, broadcast] = await Helpers.tryCatch(Broadcast.update(payload, { where: { id } }));
 	if (err) return Boom.badRequest(err);
 
 	return h.response({ id });
 };
 
 const deleteBroadcast = async (request, h) => {
-	const { id } = request.params;
+	const {
+		params: { id },
+	} = request;
 
 	const broadcast = await Broadcast.findByPk(id);
 	if (broadcast === null) return Boom.notFound();

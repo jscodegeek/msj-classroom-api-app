@@ -1,0 +1,86 @@
+import * as Joi from 'joi';
+import { meCtrl } from '../controllers';
+import { firstname, lastname, login, password, authToken } from './variables';
+
+const routes = [
+	{
+		method: 'GET',
+		path: '/me',
+		config: {
+			handler: meCtrl.fetchMe,
+			tags: ['api', 'me'],
+			description: 'fetch me',
+			auth: {
+				strategy: 'jwt',
+				scope: ['STUDENT', 'ADMIN'],
+			},
+			validate: {
+				headers: Joi.object({
+					authorization: authToken,
+				}).options({ allowUnknown: true }),
+			},
+		},
+	},
+	{
+		method: 'PUT',
+		path: '/me',
+		config: {
+			handler: meCtrl.updateMe,
+			tags: ['api', 'me'],
+			description: 'update me',
+			auth: {
+				strategy: 'jwt',
+				scope: ['STUDENT', 'ADMIN'],
+			},
+			validate: {
+				headers: Joi.object({
+					authorization: authToken,
+				}).options({ allowUnknown: true }),
+				payload: {
+					firstname,
+					lastname,
+					login,
+					password,
+				},
+			},
+		},
+	},
+	{
+		method: 'GET',
+		path: '/me/courses',
+		config: {
+			handler: meCtrl.fetchMyCourses,
+			tags: ['api', 'me'],
+			description: 'fetch my courses',
+			auth: {
+				strategy: 'jwt',
+				scope: ['STUDENT', 'ADMIN'],
+			},
+			validate: {
+				headers: Joi.object({
+					authorization: authToken,
+				}).options({ allowUnknown: true }),
+			},
+		},
+	},
+	{
+		method: 'GET',
+		path: '/me/lectures',
+		config: {
+			handler: meCtrl.fetchMyLectures,
+			tags: ['api', 'me'],
+			description: 'fetch my lectures',
+			auth: {
+				strategy: 'jwt',
+				scope: ['STUDENT', 'ADMIN'],
+			},
+			validate: {
+				headers: Joi.object({
+					authorization: authToken,
+				}).options({ allowUnknown: true }),
+			},
+		},
+	},
+];
+
+export default routes;

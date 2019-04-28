@@ -1,7 +1,7 @@
 import * as Hapi from 'hapi';
 import config from './config';
 import routes from './routes';
-import plugins from './plugins';
+import initPlugins from './plugins';
 
 const { host, port } = config[config.ENVIRONMENT].server;
 
@@ -29,8 +29,8 @@ const server = new Hapi.Server({
 server.realm.modifiers.route.prefix = '/api';
 
 const start = async () => {
+	await initPlugins(server);
 	server.route(routes);
-	await server.register(plugins);
 	await server.start();
 	console.log(`Server running at: ${server.info.uri}`);
 };

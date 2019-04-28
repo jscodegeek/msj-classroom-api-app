@@ -1,24 +1,34 @@
 module.exports = {
 	up: (queryInterface, Sequelize) => {
-		return queryInterface.createTable('messages', {
+		return queryInterface.createTable('users', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			author: {
+			firstname: {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
-			text: {
-				allowNull: false,
-				type: Sequelize.TEXT,
-			},
-			type: {
+			lastname: {
 				allowNull: false,
 				type: Sequelize.STRING,
 			},
+			login: {
+				allowNull: false,
+				unique: true,
+				type: Sequelize.STRING,
+			},
+			password: {
+				allowNull: false,
+				type: Sequelize.STRING,
+			},
+			scope: {
+				allowNull: false,
+				type: Sequelize.STRING,
+			},
+			deletedAt: Sequelize.DATE,
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
@@ -27,17 +37,9 @@ module.exports = {
 				allowNull: false,
 				type: Sequelize.DATE,
 			},
-			broadcastId: {
-				allowNull: false,
-				type: Sequelize.INTEGER,
-				references: {
-					model: 'broadcasts',
-					key: 'id',
-				},
-			},
 		});
 	},
 	down: (queryInterface, Sequelize) => {
-		return queryInterface.dropTable('messages');
+		return queryInterface.dropTable('users');
 	},
 };

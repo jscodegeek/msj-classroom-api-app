@@ -2,7 +2,7 @@ const faker = require('faker');
 const _ = require('lodash');
 const Bcrypt = require('bcryptjs');
 
-const roles = ['STUDENT', 'ADMIN'];
+const scopes = ['STUDENT', 'ADMIN'];
 
 const salt = Bcrypt.genSaltSync(10);
 const hash = Bcrypt.hashSync('password', salt);
@@ -10,9 +10,9 @@ const hash = Bcrypt.hashSync('password', salt);
 const users = _.times(8, n => ({
 	firstname: faker.name.firstName(),
 	lastname: faker.name.lastName(),
-	login: `login #${n + 1}`,
+	login: `login#${n + 1}`,
 	password: hash,
-	role: faker.random.arrayElement(roles),
+	scope: faker.random.arrayElement(scopes),
 	createdAt: new Date(),
 	updatedAt: new Date(),
 }));

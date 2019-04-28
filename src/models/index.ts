@@ -17,7 +17,14 @@ export const Message = MessageClass.init(sequelize, Sequelize);
 export const User = UserClass.init(sequelize, Sequelize);
 export const Subscription = SubscriptionClass.init(sequelize, Sequelize);
 
-const models = { Broadcast, Course, Lecture, Message, User, Subscription };
+const models = {
+	Broadcast,
+	Course,
+	Lecture,
+	Message,
+	User,
+	Subscription,
+};
 
 Object.keys(models).forEach(key => {
 	if ('associate' in models[key]) {

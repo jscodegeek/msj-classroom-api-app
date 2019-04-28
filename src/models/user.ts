@@ -34,7 +34,7 @@ export default class User extends Sequelize.Model {
 					allowNull: false,
 					type: DataTypes.STRING,
 				},
-				role: {
+				scope: {
 					allowNull: false,
 					type: DataTypes.STRING,
 				},
@@ -53,39 +53,6 @@ export default class User extends Sequelize.Model {
 
 		return User;
 	}
-
-	static decodeToken = token => {
-		let decoded;
-
-		try {
-			decoded = Jwt.verify(token, JWT_SECRET_KEY);
-		} catch (err) {
-			return ['token is invalid'];
-		}
-
-		return [null, decoded];
-	};
-
-	static findByCredentials = async ({ login, password }) => {
-		const userObj: any = await User.findOne({ where: { login } });
-		if (userObj === null) return ['user with provided login does not exist'];
-
-		const user = userObj.dataValues;
-
-		const [err, match] = await Helpers.tryCatch(Bcrypt.compare(password, user.password));
-		if (!match) return ['wrong password'];
-
-		return [null, user];
-	};
-
-	static generateJwtToken = userObj => {
-		const user = _.cloneDeep(userObj);
-		delete user.password;
-
-		const token = Jwt.sign(user, JWT_SECRET_KEY);
-
-		return token;
-	};
 
 	static associate(models) {
 		User.belongsToMany(models.Course, {
@@ -112,4 +79,32 @@ export default class User extends Sequelize.Model {
 			},
 		});
 	}
+
+	static decodeToken = (token: string): [null, string | object] | [string] => {
+		try {
+			const decoded = Jwt.verify(token, JWT_SECRET_KEY);
+			return [null, decoded];
+		} catch (err) {
+			return ['token is invalid'];
+		}
+	};
+
+	static findByCredentials = async ({ login, password }) => {
+		const user = await User.findOne({ where: { login } });
+		if (user === null) return ['user with provided login does not exist'];
+
+		const [err, match] = await Helpers.tryCatch(Bcrypt.compare(password, user.get('password')));
+		if (!match) return ['wrong password'];
+
+		return [null, user];
+	};
+
+	static generateJwtToken = user => {
+		const userSignData = _.cloneDeep(user);
+		delete userSignData.password;
+
+		const token = Jwt.sign(userSignData, JWT_SECRET_KEY);
+
+		return token;
+	};
 }

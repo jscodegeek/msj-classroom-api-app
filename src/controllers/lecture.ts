@@ -9,7 +9,9 @@ const fetchAllLectures = async (request, h) => {
 };
 
 const fetchLectureById = async (request, h) => {
-	const { id } = request.params;
+	const {
+		params: { id },
+	} = request;
 
 	const lecture = await Lecture.findByPk(id);
 	if (lecture === null) return Boom.notFound();
@@ -18,25 +20,30 @@ const fetchLectureById = async (request, h) => {
 };
 
 const createLecture = async (request, h) => {
-	const [err, lecture] = await Helpers.tryCatch(Lecture.create(request.payload));
+	const { payload } = request;
 
+	const [err, lecture] = await Helpers.tryCatch(Lecture.create(payload));
 	if (err) return Boom.badRequest(err);
 
 	return h.response({ id: lecture.id });
 };
 
 const updateLecture = async (request, h) => {
-	const { id } = request.params;
+	const {
+		payload,
+		params: { id },
+	} = request;
 
-	const [err, lecture] = await Helpers.tryCatch(Lecture.update(request.payload, { where: { id } }));
-
+	const [err, lecture] = await Helpers.tryCatch(Lecture.update(payload, { where: { id } }));
 	if (err) return Boom.badRequest(err);
 
 	return h.response({ id });
 };
 
 const deleteLecture = async (request, h) => {
-	const { id } = request.params;
+	const {
+		params: { id },
+	} = request;
 
 	const lecture = await Lecture.findByPk(id);
 	if (lecture === null) return Boom.notFound();

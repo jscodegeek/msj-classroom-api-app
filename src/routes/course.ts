@@ -1,5 +1,6 @@
+import * as Joi from 'joi';
 import { courseCtrl } from '../controllers';
-import { id, name, description, date, imageUrl } from './variables';
+import { id, name, description, date, imageUrl, authToken } from './variables';
 
 const routes = [
 	{
@@ -9,6 +10,11 @@ const routes = [
 			handler: courseCtrl.fetchAllCourses,
 			tags: ['api', 'courses'],
 			description: 'fetch all courses',
+			validate: {
+				headers: Joi.object({
+					authorization: authToken.optional(),
+				}).options({ allowUnknown: true }),
+			},
 		},
 	},
 	{
@@ -19,6 +25,9 @@ const routes = [
 			tags: ['api', 'courses'],
 			description: 'fetch course by id',
 			validate: {
+				headers: Joi.object({
+					authorization: authToken.optional(),
+				}).options({ allowUnknown: true }),
 				params: {
 					id,
 				},

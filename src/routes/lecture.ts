@@ -1,5 +1,6 @@
+import * as Joi from 'joi';
 import { lectureCtrl } from '../controllers';
-import { id, name, date, description } from './variables';
+import { id, name, date, description, authToken } from './variables';
 
 const routes = [
 	{
@@ -19,6 +20,9 @@ const routes = [
 			tags: ['api', 'lectures'],
 			description: 'fetch lecture by id',
 			validate: {
+				headers: Joi.object({
+					authorization: authToken.optional(),
+				}).options({ allowUnknown: true }),
 				params: {
 					id,
 				},

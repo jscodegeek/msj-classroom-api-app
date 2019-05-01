@@ -78,8 +78,7 @@ export const password = Joi.string()
 export const authToken = Joi.string()
 	.max(2000)
 	.trim()
-	.min(1)
-	.required();
+	.min(1);
 
 export const subscribable = Joi.string()
 	.max(200)

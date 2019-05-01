@@ -1,5 +1,6 @@
 import * as Joi from 'joi';
 import { meCtrl } from '../controllers';
+import { USER_SCOPES } from '../shared/variables';
 import { firstname, lastname, login, password, authToken } from './variables';
 
 const routes = [
@@ -12,11 +13,11 @@ const routes = [
 			description: 'fetch me',
 			auth: {
 				strategy: 'jwt',
-				scope: ['STUDENT', 'ADMIN'],
+				scope: [USER_SCOPES.STUDENT, USER_SCOPES.ADMIN],
 			},
 			validate: {
 				headers: Joi.object({
-					authorization: authToken,
+					authorization: authToken.required(),
 				}).options({ allowUnknown: true }),
 			},
 		},
@@ -30,11 +31,11 @@ const routes = [
 			description: 'update me',
 			auth: {
 				strategy: 'jwt',
-				scope: ['STUDENT', 'ADMIN'],
+				scope: [USER_SCOPES.STUDENT, USER_SCOPES.ADMIN],
 			},
 			validate: {
 				headers: Joi.object({
-					authorization: authToken,
+					authorization: authToken.required(),
 				}).options({ allowUnknown: true }),
 				payload: {
 					firstname,
@@ -54,11 +55,11 @@ const routes = [
 			description: 'fetch my courses',
 			auth: {
 				strategy: 'jwt',
-				scope: ['STUDENT', 'ADMIN'],
+				scope: [USER_SCOPES.STUDENT, USER_SCOPES.ADMIN],
 			},
 			validate: {
 				headers: Joi.object({
-					authorization: authToken,
+					authorization: authToken.required(),
 				}).options({ allowUnknown: true }),
 			},
 		},
@@ -72,11 +73,11 @@ const routes = [
 			description: 'fetch my lectures',
 			auth: {
 				strategy: 'jwt',
-				scope: ['STUDENT', 'ADMIN'],
+				scope: [USER_SCOPES.STUDENT, USER_SCOPES.ADMIN],
 			},
 			validate: {
 				headers: Joi.object({
-					authorization: authToken,
+					authorization: authToken.required(),
 				}).options({ allowUnknown: true }),
 			},
 		},

@@ -4,6 +4,16 @@ import * as Jwt from 'jsonwebtoken';
 import * as _ from 'lodash';
 import Helpers from '../helpers';
 import config from '../config';
+import { ITokenData } from '../shared/types';
+
+export interface IUser extends User {
+	id: number;
+	firstname: string;
+	lastname: string;
+	login: string;
+	password: string;
+	scope: string;
+}
 
 const { JWT_SECRET_KEY } = config[config.ENVIRONMENT];
 
@@ -13,7 +23,7 @@ const hashPassword = async (user, options) => {
 	user.password = hash;
 };
 
-export default class User extends Sequelize.Model {
+export class User extends Sequelize.Model {
 	static init(sequelize, DataTypes) {
 		super.init(
 			{
@@ -80,31 +90,34 @@ export default class User extends Sequelize.Model {
 		});
 	}
 
-	static decodeToken = (token: string): [null, string | object] | [string] => {
+	static decodeToken = (token: string): [null, ITokenData] | [string] => {
 		try {
-			const decoded = Jwt.verify(token, JWT_SECRET_KEY);
+			const decoded = Jwt.verify(token, JWT_SECRET_KEY) as ITokenData;
 			return [null, decoded];
 		} catch (err) {
 			return ['token is invalid'];
 		}
 	};
 
-	static findByCredentials = async ({ login, password }) => {
-		const user = await User.findOne({ where: { login } });
+	static findByCredentials = async ({ login, password }): Promise<[null, IUser] | [string]> => {
+		const user = await (User.findOne({ where: { login } }) as IUser);
 		if (user === null) return ['user with provided login does not exist'];
 
-		const [err, match] = await Helpers.tryCatch(Bcrypt.compare(password, user.get('password')));
+		const [err, match] = await Helpers.tryCatch(Bcrypt.compare(password, user.get('password') as string));
 		if (!match) return ['wrong password'];
 
 		return [null, user];
 	};
 
-	static generateJwtToken = user => {
-		const userSignData = _.cloneDeep(user);
-		delete userSignData.password;
+	static generateJwtToken = (user: IUser) => {
+		const userSignData = _.cloneDeep(_.omit(user.get(), 'password'));
 
 		const token = Jwt.sign(userSignData, JWT_SECRET_KEY);
 
 		return token;
 	};
+}
+
+interface IKostul extends ITokenData {
+	password: string;
 }

@@ -18,6 +18,8 @@ module.exports =  {
 		"no-param-reassign": "warn",
 		"prettier/prettier": ["error", {"useTabs": true}],
 		"array-element-newline": ["error", "consistent"],
-		"array-bracket-newline": ["error", "consistent"]
+		"array-bracket-newline": ["error", "consistent"],
+		"lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
+		"@typescript-eslint/interface-name-prefix": ["error", "always"]
   },
 };

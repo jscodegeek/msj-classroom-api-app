@@ -1,6 +1,13 @@
 import * as Sequelize from 'sequelize';
 
-export default class Broadcast extends Sequelize.Model {
+export interface IBroadcast extends Broadcast {
+	id: number;
+	name: string;
+	pincode: number;
+	status: string;
+}
+
+export class Broadcast extends Sequelize.Model {
 	static init(sequelize, DataTypes) {
 		super.init(
 			{

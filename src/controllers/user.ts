@@ -1,9 +1,9 @@
 import * as Boom from 'boom';
 import Helpers from '../helpers';
-import { User, Lecture, Course, Subscription } from '../models';
+import { User, IUser, Subscription, ISubscription } from '../models';
 
 const fetchAllUsers = async (request, h) => {
-	const users = await User.findAll({ include: [{ model: Course }, { model: Lecture }] });
+	const users = await (User.findAll() as Promise<IUser[]>);
 
 	return h.response(users);
 };
@@ -13,7 +13,7 @@ const fetchUserById = async (request, h) => {
 		params: { id },
 	} = request;
 
-	const user = await User.findByPk(id);
+	const user = await (User.findByPk(id) as Promise<IUser>);
 
 	return h.response(user);
 };
@@ -24,7 +24,7 @@ const updateUser = async (request, h) => {
 		params: { id },
 	} = request;
 
-	const [err, user] = await Helpers.tryCatch(User.update(payload, { where: { id } }));
+	const [err, user] = await Helpers.tryCatch(User.update(payload, { where: { id } }) as Promise<IUser>);
 	if (err) return Boom.badRequest(err);
 
 	return h.response(user);
@@ -35,7 +35,7 @@ const deleteUser = async (request, h) => {
 		params: { id },
 	} = request;
 
-	const user = await User.findByPk(id);
+	const user = await (User.findByPk(id) as Promise<IUser>);
 	if (user === null) return Boom.notFound();
 
 	await User.destroy({ where: { id } });
@@ -49,13 +49,11 @@ const subscribe = async (request, h) => {
 		params: { userId },
 	} = request;
 
-	const [err, subscription] = await Helpers.tryCatch(
-		Subscription.create({
-			userId,
-			subscribable: entity,
-			subscribableId: id,
-		}),
-	);
+	const [err, subscription] = await Helpers.tryCatch(Subscription.create({
+		userId,
+		subscribable: entity,
+		subscribableId: id,
+	}) as Promise<ISubscription>);
 	if (err) return Boom.badRequest(err);
 
 	return h.response();
@@ -67,13 +65,13 @@ const unsubscribe = async (request, h) => {
 		params: { userId },
 	} = request;
 
-	const subscription = await Subscription.findOne({
+	const subscription = await (Subscription.findOne({
 		where: {
 			userId,
 			subscribable: entity,
 			subscribableId: id,
 		},
-	});
+	}) as Promise<ISubscription>);
 	if (subscription === null) return Boom.notFound();
 
 	await Subscription.destroy({

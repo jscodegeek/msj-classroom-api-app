@@ -1,29 +1,22 @@
 import * as Sequelize from 'sequelize';
 import config from '../config';
 
-import BroadcastClass from './broadcast';
-import CourseClass from './course';
-import LectureClass from './lecture';
-import MessageClass from './message';
-import UserClass from './user';
-import SubscriptionClass from './subscription';
+import { Broadcast, IBroadcast } from './broadcast';
+import { Course, ICourse } from './course';
+import { Lecture, ILecture } from './lecture';
+import { Message, IMessage } from './message';
+import { Subscription, ISubscription } from './subscription';
+import { User, IUser } from './user';
 
 const sequelize = new Sequelize.Sequelize(config[config.ENVIRONMENT].db);
 
-export const Broadcast = BroadcastClass.init(sequelize, Sequelize);
-export const Course = CourseClass.init(sequelize, Sequelize);
-export const Lecture = LectureClass.init(sequelize, Sequelize);
-export const Message = MessageClass.init(sequelize, Sequelize);
-export const User = UserClass.init(sequelize, Sequelize);
-export const Subscription = SubscriptionClass.init(sequelize, Sequelize);
-
 const models = {
-	Broadcast,
-	Course,
-	Lecture,
-	Message,
-	User,
-	Subscription,
+	Broadcast: Broadcast.init(sequelize, Sequelize),
+	Course: Course.init(sequelize, Sequelize),
+	Lecture: Lecture.init(sequelize, Sequelize),
+	Message: Message.init(sequelize, Sequelize),
+	Subscription: Subscription.init(sequelize, Sequelize),
+	User: User.init(sequelize, Sequelize),
 };
 
 Object.keys(models).forEach(key => {
@@ -31,3 +24,6 @@ Object.keys(models).forEach(key => {
 		models[key].associate(models);
 	}
 });
+
+export { Broadcast, Course, Lecture, Message, Subscription, User };
+export { IBroadcast, ICourse, ILecture, IMessage, ISubscription, IUser };

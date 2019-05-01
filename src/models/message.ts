@@ -1,6 +1,13 @@
 import * as Sequelize from 'sequelize';
 
-export default class Message extends Sequelize.Model {
+export interface IMessage extends Message {
+	id: number;
+	author: string;
+	text: string;
+	type: string;
+}
+
+export class Message extends Sequelize.Model {
 	static init(sequelize, DataTypes) {
 		super.init(
 			{

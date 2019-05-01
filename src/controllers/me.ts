@@ -1,6 +1,7 @@
 import * as Boom from 'boom';
-import Helpers from '../helpers';
-import { User, Lecture, Course } from '../models';
+import Helpers, { ObjectFactory } from '../helpers';
+import { USER_SCOPES, ENTITY_TYPES } from '../shared/variables';
+import { User, IUser, Lecture, ILecture, Course, ICourse } from '../models';
 
 const fetchMe = async (request, h) => {
 	const {
@@ -9,9 +10,17 @@ const fetchMe = async (request, h) => {
 		},
 	} = request;
 
-	const me = await User.findByPk(id);
+	const me = await (User.findByPk(id) as Promise<IUser>);
 
-	return h.response(me);
+	return h.response(
+		ObjectFactory.init({
+			data: me,
+			scope: USER_SCOPES.STUDENT,
+			entity: ENTITY_TYPES.USER,
+		})
+			.removeUnsafeProps()
+			.build(),
+	);
 };
 
 const updateMe = async (request, h) => {
@@ -22,10 +31,18 @@ const updateMe = async (request, h) => {
 		payload,
 	} = request;
 
-	const [err, me] = await Helpers.tryCatch(User.update({ ...payload, scope }, { where: { id } }));
+	const [err, me] = await Helpers.tryCatch(User.update({ ...payload, scope }, { where: { id } }) as Promise<IUser>);
 	if (err) return Boom.badRequest(err);
 
-	return h.response(me);
+	return h.response(
+		ObjectFactory.init({
+			data: me,
+			scope: USER_SCOPES.STUDENT,
+			entity: ENTITY_TYPES.USER,
+		})
+			.removeUnsafeProps()
+			.build(),
+	);
 };
 
 const fetchMyCourses = async (request, h) => {
@@ -35,9 +52,24 @@ const fetchMyCourses = async (request, h) => {
 		},
 	} = request;
 
-	const me = await User.findByPk(id, { include: [{ model: Course }] });
+	const myCourses = await (Course.findAll({
+		include: [
+			{
+				model: User,
+				where: { id },
+			},
+		],
+	}) as Promise<ICourse[]>);
 
-	return h.response(me.courses);
+	return h.response(
+		ObjectFactory.init({
+			data: myCourses,
+			scope: USER_SCOPES.STUDENT,
+			entity: ENTITY_TYPES.COURSE,
+		})
+			.removeUnsafeProps()
+			.build(),
+	);
 };
 
 const fetchMyLectures = async (request, h) => {
@@ -47,9 +79,24 @@ const fetchMyLectures = async (request, h) => {
 		},
 	} = request;
 
-	const me = await User.findByPk(id, { include: [{ model: Lecture }] });
+	const myLectures = await (Lecture.findAll({
+		include: [
+			{
+				model: User,
+				where: { id },
+			},
+		],
+	}) as Promise<ILecture[]>);
 
-	return h.response(me.lectures);
+	return h.response(
+		ObjectFactory.init({
+			data: myLectures,
+			scope: USER_SCOPES.STUDENT,
+			entity: ENTITY_TYPES.LECTURE,
+		})
+			.removeUnsafeProps()
+			.build(),
+	);
 };
 
 export default {

@@ -1,14 +1,16 @@
 import * as Sequelize from 'sequelize';
 
-export default class Subscription extends Sequelize.Model {
+export interface ISubscription extends Subscription {
+	id: number;
+	userId: number;
+	subscribable: string;
+	subscribableId: number;
+}
+
+export class Subscription extends Sequelize.Model {
 	static init(sequelize, DataTypes) {
 		super.init(
 			{
-				id: {
-					type: Sequelize.INTEGER,
-					primaryKey: true,
-					autoIncrement: true,
-				},
 				userId: {
 					allowNull: false,
 					type: DataTypes.INTEGER,

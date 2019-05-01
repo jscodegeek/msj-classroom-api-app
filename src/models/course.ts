@@ -1,6 +1,14 @@
 import * as Sequelize from 'sequelize';
 
-export default class Course extends Sequelize.Model {
+export interface ICourse extends Course {
+	id: number;
+	name: string;
+	description: string;
+	startDate: Date;
+	imageUrl: string;
+}
+
+export class Course extends Sequelize.Model {
 	static init(sequelize, DataTypes) {
 		super.init(
 			{

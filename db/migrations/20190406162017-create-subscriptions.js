@@ -1,23 +1,20 @@
 module.exports = {
 	up: (queryInterface, Sequelize) => {
 		return queryInterface.createTable('subscriptions', {
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: Sequelize.INTEGER,
-			},
 			userId: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
+				unique: 'subscriptionSubscribable',
 			},
 			subscribable: {
 				allowNull: false,
 				type: Sequelize.STRING,
+				unique: 'subscriptionSubscribable',
 			},
 			subscribableId: {
 				allowNull: false,
 				type: Sequelize.INTEGER,
+				unique: 'subscriptionSubscribable',
 			},
 			createdAt: {
 				allowNull: false,

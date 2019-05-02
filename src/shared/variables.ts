@@ -1,6 +1,4 @@
-import { IENTITY_TYPES, IUSER_SCOPES } from './types';
-
-export const PROP_NAMES: { [key: string]: string } = {
+export const PROP_NAMES = {
 	ID: 'id',
 	COURSE_ID: 'courseId',
 	LECTURE_ID: 'lectureId',
@@ -9,6 +7,7 @@ export const PROP_NAMES: { [key: string]: string } = {
 	NAME: 'name',
 	FIRSTNAME: 'firstname',
 	LASTNAME: 'lastname',
+	PASSWORD: 'password',
 	TITLE: 'title',
 	DESCRIPTION: 'description',
 	START_DATE: 'startDate',
@@ -17,13 +16,13 @@ export const PROP_NAMES: { [key: string]: string } = {
 	IS_SUBSCRIBED: 'isSubscribed',
 };
 
-export const ENTITY_TYPES: { [key: string]: IENTITY_TYPES } = {
+export const ENTITY_TYPES = {
 	COURSE: 'course',
 	LECTURE: 'lecture',
 	USER: 'user',
 };
 
-export const USER_SCOPES: { [key: string]: IUSER_SCOPES } = {
+export const USER_SCOPES = {
 	ADMIN: 'ADMIN',
 	STUDENT: 'STUDENT',
 };

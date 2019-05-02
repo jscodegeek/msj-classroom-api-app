@@ -1,4 +1,5 @@
 import * as Joi from 'joi';
+import { ENTITY_TYPES } from '../shared/variables';
 
 export const id = Joi.number()
 	.integer()
@@ -81,7 +82,5 @@ export const authToken = Joi.string()
 	.min(1);
 
 export const subscribable = Joi.string()
-	.max(200)
-	.trim()
-	.min(1)
+	.valid(ENTITY_TYPES.COURSE, ENTITY_TYPES.LECTURE)
 	.required();

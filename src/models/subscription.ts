@@ -14,14 +14,17 @@ export class Subscription extends Sequelize.Model {
 				userId: {
 					allowNull: false,
 					type: DataTypes.INTEGER,
+					unique: 'subscriptionSubscribable',
 				},
 				subscribable: {
 					allowNull: false,
 					type: DataTypes.STRING,
+					unique: 'subscriptionSubscribable',
 				},
 				subscribableId: {
 					allowNull: false,
 					type: DataTypes.INTEGER,
+					unique: 'subscriptionSubscribable',
 				},
 			},
 			{

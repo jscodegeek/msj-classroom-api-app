@@ -1,31 +1,25 @@
 import * as Boom from 'boom';
 import * as _ from 'lodash';
-import Helpers, { ObjectFactory } from '../helpers';
-import { USER_SCOPES, ENTITY_TYPES, PROP_NAMES } from '../shared/variables';
+import Helpers from '../helpers';
+import { PROP_NAMES } from '../shared/variables';
 import { Course, ICourse, User, Lecture } from '../models';
+import { CourseFactory } from '../factories';
 
 const fetchAllCourses = async (request, h) => {
 	const { authorization } = request.headers;
-	let result = {};
+	let userId = null;
 
 	const courses = await (Course.findAll({ include: [{ model: User }, { model: Lecture }] }) as Promise<ICourse[]>);
 
-	if (!authorization) {
-		result = Helpers.addIsSubscribedProp(courses, null);
-	} else {
+	if (authorization) {
 		const [err, decoded] = User.decodeToken(authorization);
-		if (!err) {
-			result = Helpers.addIsSubscribedProp(courses, decoded.id);
-		}
+		if (!err) userId = decoded.id;
 	}
 
 	return h.response(
-		ObjectFactory.init({
-			data: result,
-			scope: USER_SCOPES.STUDENT,
-			entity: ENTITY_TYPES.COURSE,
-		})
+		CourseFactory.init(courses)
 			.addPropsToWhiteList(PROP_NAMES.IS_SUBSCRIBED)
+			.addIsSubscribedProp(userId)
 			.removeUnsafeProps()
 			.build(),
 	);
@@ -36,26 +30,20 @@ const fetchCourseById = async (request, h) => {
 		params: { id },
 		headers: { authorization },
 	} = request;
+	let userId = null;
 
-	let course = await (Course.findByPk(id, { include: [{ model: User }] }) as Promise<ICourse>);
+	const course = await (Course.findByPk(id, { include: [{ model: User }] }) as Promise<ICourse>);
 	if (course === null) return Boom.notFound();
 
-	if (!authorization) {
-		course = Helpers.addIsSubscribedProp(course, null);
-	} else {
+	if (authorization) {
 		const [err, decoded] = User.decodeToken(authorization);
-		if (!err) {
-			course = Helpers.addIsSubscribedProp(course, decoded.id);
-		}
+		if (!err) userId = decoded.id;
 	}
 
 	return h.response(
-		ObjectFactory.init({
-			data: course,
-			scope: USER_SCOPES.STUDENT,
-			entity: ENTITY_TYPES.COURSE,
-		})
+		CourseFactory.init(course)
 			.addPropsToWhiteList(PROP_NAMES.IS_SUBSCRIBED)
+			.addIsSubscribedProp(userId)
 			.removeUnsafeProps()
 			.build(),
 	);

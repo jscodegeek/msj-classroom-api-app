@@ -1,7 +1,7 @@
 import * as Boom from 'boom';
-import Helpers, { ObjectFactory } from '../helpers';
-import { USER_SCOPES, ENTITY_TYPES } from '../shared/variables';
+import Helpers from '../helpers';
 import { User, IUser, Lecture, ILecture, Course, ICourse } from '../models';
+import { UserFactory, CourseFactory, LectureFactory } from '../factories';
 
 const fetchMe = async (request, h) => {
 	const {
@@ -13,11 +13,7 @@ const fetchMe = async (request, h) => {
 	const me = await (User.findByPk(id) as Promise<IUser>);
 
 	return h.response(
-		ObjectFactory.init({
-			data: me,
-			scope: USER_SCOPES.STUDENT,
-			entity: ENTITY_TYPES.USER,
-		})
+		UserFactory.init(me)
 			.removeUnsafeProps()
 			.build(),
 	);
@@ -35,11 +31,7 @@ const updateMe = async (request, h) => {
 	if (err) return Boom.badRequest(err);
 
 	return h.response(
-		ObjectFactory.init({
-			data: me,
-			scope: USER_SCOPES.STUDENT,
-			entity: ENTITY_TYPES.USER,
-		})
+		UserFactory.init(me)
 			.removeUnsafeProps()
 			.build(),
 	);
@@ -62,11 +54,7 @@ const fetchMyCourses = async (request, h) => {
 	}) as Promise<ICourse[]>);
 
 	return h.response(
-		ObjectFactory.init({
-			data: myCourses,
-			scope: USER_SCOPES.STUDENT,
-			entity: ENTITY_TYPES.COURSE,
-		})
+		CourseFactory.init(myCourses)
 			.removeUnsafeProps()
 			.build(),
 	);
@@ -89,11 +77,7 @@ const fetchMyLectures = async (request, h) => {
 	}) as Promise<ILecture[]>);
 
 	return h.response(
-		ObjectFactory.init({
-			data: myLectures,
-			scope: USER_SCOPES.STUDENT,
-			entity: ENTITY_TYPES.LECTURE,
-		})
+		LectureFactory.init(myLectures)
 			.removeUnsafeProps()
 			.build(),
 	);

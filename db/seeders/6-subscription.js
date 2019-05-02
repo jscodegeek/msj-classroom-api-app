@@ -22,7 +22,7 @@ subscriptions.push(
 	..._.times(4, n => ({
 		userId: n + 1,
 		subscribable: 'lecture',
-		subscribableId: n + 3,
+		subscribableId: n + 1,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})),
@@ -32,7 +32,7 @@ subscriptions.push(
 	..._.times(4, n => ({
 		userId: n + 1,
 		subscribable: 'lecture',
-		subscribableId: n + 4,
+		subscribableId: n + 3,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	})),

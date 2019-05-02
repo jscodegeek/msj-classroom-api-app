@@ -5,6 +5,9 @@ export interface ILecture extends Lecture {
 	title: string;
 	description: string;
 	scheduledTime: Date;
+	isSubscribed?: boolean;
+	users?: any[];
+	course?: any;
 }
 
 export class Lecture extends Sequelize.Model {

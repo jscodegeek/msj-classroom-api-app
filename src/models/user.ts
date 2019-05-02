@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import Helpers from '../helpers';
 import config from '../config';
 import { ITokenData } from '../shared/types';
+import { PROP_NAMES } from '../shared/variables';
 
 export interface IUser extends User {
 	id: number;
@@ -67,7 +68,6 @@ export class User extends Sequelize.Model {
 	static associate(models) {
 		User.belongsToMany(models.Course, {
 			foreignKey: 'userId',
-			constraints: false,
 			through: {
 				model: models.Subscription,
 				unique: false,
@@ -79,7 +79,6 @@ export class User extends Sequelize.Model {
 
 		User.belongsToMany(models.Lecture, {
 			foreignKey: 'userId',
-			constraints: false,
 			through: {
 				model: models.Subscription,
 				unique: false,
@@ -103,21 +102,17 @@ export class User extends Sequelize.Model {
 		const user = await (User.findOne({ where: { login } }) as IUser);
 		if (user === null) return ['user with provided login does not exist'];
 
-		const [err, match] = await Helpers.tryCatch(Bcrypt.compare(password, user.get('password') as string));
+		const [err, match] = await Helpers.tryCatch(Bcrypt.compare(password, user.get(PROP_NAMES.PASSWORD) as string));
 		if (!match) return ['wrong password'];
 
 		return [null, user];
 	};
 
 	static generateJwtToken = (user: IUser) => {
-		const userSignData = _.cloneDeep(_.omit(user.get(), 'password'));
+		const userSignData = _.cloneDeep(_.omit(user.get(), PROP_NAMES.PASSWORD));
 
 		const token = Jwt.sign(userSignData, JWT_SECRET_KEY);
 
 		return token;
 	};
-}
-
-interface IKostul extends ITokenData {
-	password: string;
 }

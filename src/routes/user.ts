@@ -1,4 +1,6 @@
+import * as Joi from 'joi';
 import { userCtrl } from '../controllers';
+import { USER_SCOPES } from '../shared/variables';
 import { id, firstname, lastname, login, password, subscribable, authToken } from './variables';
 
 const routes = [
@@ -61,15 +63,19 @@ const routes = [
 	},
 	{
 		method: 'POST',
-		path: '/users/{userId}/subscribe',
+		path: '/users/subscribe',
 		config: {
 			handler: userCtrl.subscribe,
 			tags: ['api', 'users'],
 			description: 'subscribe user to course or lecture',
+			auth: {
+				strategy: 'jwt',
+				scope: [USER_SCOPES.STUDENT, USER_SCOPES.ADMIN],
+			},
 			validate: {
-				params: {
-					userId: id,
-				},
+				headers: Joi.object({
+					authorization: authToken.required(),
+				}).options({ allowUnknown: true }),
 				payload: {
 					entity: subscribable,
 					id,
@@ -79,15 +85,19 @@ const routes = [
 	},
 	{
 		method: 'POST',
-		path: '/users/{userId}/unsubscribe',
+		path: '/users/unsubscribe',
 		config: {
 			handler: userCtrl.unsubscribe,
 			tags: ['api', 'users'],
 			description: 'unsubscribe user from course or lecture',
+			auth: {
+				strategy: 'jwt',
+				scope: [USER_SCOPES.STUDENT, USER_SCOPES.ADMIN],
+			},
 			validate: {
-				params: {
-					userId: id,
-				},
+				headers: Joi.object({
+					authorization: authToken.required(),
+				}).options({ allowUnknown: true }),
 				payload: {
 					entity: subscribable,
 					id,

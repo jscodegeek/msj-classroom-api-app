@@ -6,6 +6,8 @@ export interface ICourse extends Course {
 	description: string;
 	startDate: Date;
 	imageUrl: string;
+	isSubscribed?: boolean;
+	users?: any[];
 }
 
 export class Course extends Sequelize.Model {
